@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="mobile-web-app-capable" content="yes">
+
+		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+		<!-- <script src="https://use.fontawesome.com/d5895a3b55.js"></script> -->
+		<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous"> -->
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<link rel="stylesheet" href="styles.min.css" type="text/css" />
+
+		<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+
+		<title>German Player</title>
+	</head>
+	<body>
+		<div id="app" :style="{ height: windowHeight, 'background-color': currentSet.colour }" v-cloak>
+			<main>
+				<div class="info-wrap">
+					<div class="cover-wrap">
+						<img :src="currentImg" alt="currentSet.name">
+					</div>
+
+					<div class="player-wrap">
+						<audio id="player" ref="player" controls>
+							<source v-bind:src="currentTrack" type="audio/mpeg">
+							Your browser does not support the audio element. Here's a link to the audio instead: <a v-bind:href="currentTrack">Download</a>
+						</audio>
+					</div>
+				</div>
+
+				<div class="playlist-wrap">
+					<div class="playlist-title" @click="toggleSetSelect">
+						<template v-if="setSelect">
+							Select Book
+							<i class="fas fa-times"></i>
+						</template>
+						<template v-else>
+							{{ currentSet.title }}
+							<i class="fas fa-chevron-down"></i>
+						</template>
+					</div>
+					<div class="playlist" v-if="setSelect">
+						<div class="track-select" v-for="(set, index) in sets" @click="selectSet(index)">
+							<div class="track-name">{{ set.title }}</div>
+						</div>
+					</div>
+					<div class="playlist" v-else>
+						<template v-for="(track, index) in currentSet.playlist">
+							<div class="subheading" v-if="track.subheading">
+								{{ track.subheading }}
+							</div>
+							<div class="track-select" :class="{ 'currently-playing' : checkCurrentlyPlaying(index) }" @click="selectTrack(index)" v-else>
+								<div class="track-number">{{ track.trackNumber ? track.trackNumber : pad(index + 1) }}</div>
+								<div class="track-name">{{ track.name }}</div>
+								<div class="play-icon-wrap">
+									<i class="fas fa-volume-up" v-if="checkCurrentlyPlaying(index)"></i>
+									<i class="fas fa-play" v-else></i>
+								</div>
+							</div>
+						</template>
+					</div>
+				</div>
+			</main>
+		</div>
+		<script type="text/javascript" src="scripts.min.js"></script>
+	</body>
+</html>

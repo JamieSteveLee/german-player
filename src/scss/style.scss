@@ -1,0 +1,190 @@
+$fa-font-path: "webfonts/fontawesome";
+
+@import "fontawesome/fontawesome.scss";
+@import "fontawesome/solid.scss";
+
+
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
+
+*, *:before, *:after {
+	box-sizing: inherit;
+}
+html {
+	box-sizing: border-box;
+	font-family: 'Lato', sans-serif;
+}
+body {
+	margin: 0;
+}
+
+[v-cloak] {
+	display: none;
+}
+
+#app {
+	transition: background-color .3s;
+}
+
+main {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	max-width: 600px;
+	margin: 0 auto;
+
+	@media screen and (min-width: 600px) and (orientation: portrait) {
+		padding-bottom: 20px;
+	}
+	@media (orientation: landscape) {
+		flex-direction: row;
+		max-width: 1200px;
+
+		@media screen and (min-height: 400px) {
+			padding: 20px;
+
+			.info-wrap {
+				margin-right: 20px;
+				padding-bottom: 40px;
+			}
+
+			.cover-wrap {
+				height: 300px;
+
+				img {
+					height: 280px;
+				}
+			}
+		}
+
+		.info-wrap {
+			width: 40%;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+
+			.player-wrap {
+				padding: 20px 0;
+				width: 100%;
+			}
+		}
+	}
+}
+
+.cover-wrap {
+	text-align: center;
+	height: 200px;
+
+	.cover-img {
+		width: 180px;
+		background-color: #fff;
+		padding-bottom: 180px;
+		margin: 20px auto;
+	}
+
+	img {
+		height: 180px;
+		margin: 20px;
+		border: 1px solid #fff;
+	}
+}
+
+.player-wrap {
+	padding: 20px 0;
+
+	audio {
+		width: 100%;
+		padding: 0 10px;
+		outline: none;
+	}
+}
+
+.playlist-wrap {
+	flex: 1;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+
+	.playlist-title {
+		background: #333;
+		color: #fff;
+		font-size: 16px;
+		padding: 10px 40px;
+		text-align: center;
+		border-bottom: 2px solid #555;
+		position: relative;
+		cursor: pointer;
+
+		i {
+			position: absolute;
+			height: 100%;
+			top: 0;
+			right: 16px;
+			display: flex;
+			align-items: center;
+		}
+	}
+
+	.playlist {
+		overflow: auto;
+		flex: 1;
+		background-color: #333;
+		color: #ddd;
+		padding: 5px 10px;
+
+		.subheading {
+			padding: 14px 54px 0;
+			font-weight: bold;
+			font-size: 16px;
+			border-bottom: 1px solid #fff;
+			padding-bottom: 6px;
+			margin-bottom: 4px;
+
+			&:first-child {
+				padding-top: 4px;
+			}
+		}
+
+		.track-select {
+			display: flex;
+			justify-content: space-between;
+			padding: 6px;
+			font-size: 14px;
+			cursor: pointer;
+
+			&:not(:last-child) {
+				border-bottom: 1px solid #666;
+			}
+
+			&.currently-playing {
+				background-color: #555555cc;
+			}
+
+			@media not all and (pointer: coarse) {
+				&:hover {
+					background-color: #555555cc;
+				}
+			}
+
+			.track-number {
+				color: #888;
+				padding-right: 10px;
+				display: inline-block;
+				min-width: 48px;
+				letter-spacing: 1px;
+			}
+			.track-name {
+				flex: 1;
+			}
+			.play-icon-wrap {
+				width: 16px;
+				text-align: center;
+				margin-left: 12px;
+
+				.fa-play {
+					font-size: 12px;
+				}
+			}
+		}
+	}
+}
